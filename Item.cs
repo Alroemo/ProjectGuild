@@ -16,8 +16,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectGuild
 {
-  class /*Insert class name here*/
+  class Item
   {
+    string name;
+    string description;
+    int status;
     
   }
 }
