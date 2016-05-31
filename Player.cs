@@ -19,10 +19,17 @@ namespace ProjectGuild
   class Player
   {
     /** Array of all characters*/
-    character [] characters;
+    character [200] characters;
+    /** Variable to set the maximum number of characters the player can have based on base size.*/
+    int maxCharacters;
+    int currentOwnedCharacters;
     /** Array of all characters in use*/
-    character [] currentParty;
+    character [4] currentParty;
     
+    public Player(Character [] _characters, int _maxCharacters, int _curentOwnedCharacters, character [4] _currentParty)
+    {
+      
+    }
     
   }
 }
