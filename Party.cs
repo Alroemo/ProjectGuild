@@ -16,6 +16,7 @@ namespace ProjectGuild
 {
   class Party
   {
+    Character [4] characters;
     
   }
 }
