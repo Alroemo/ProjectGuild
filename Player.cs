@@ -18,6 +18,7 @@ namespace ProjectGuild
 {
   class Player
   {
+    character [] charctersOwned;
     
   }
 }
