@@ -1,0 +1,2 @@
+Move: moves characters can learn
+move(string _name, string _type, int _actionDealt, int _actionAmmount, string _element)
