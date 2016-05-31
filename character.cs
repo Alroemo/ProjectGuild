@@ -18,6 +18,9 @@ namespace ProjectGuild
 {
   class character
   {
+    string name;
+    int health;
+    
     
   }
 }
