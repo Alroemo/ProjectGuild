@@ -1,2 +1,4 @@
 Move: moves characters can learn
 move(string _name, string _type, int _actionDealt, int _actionAmmount, string _element)
+Character: characters with names, race, roles, levels, moves, and stats
+public character (string _name, string _race, string _role, Move [4] _moves, int _baseHealth, int _baseAttack, int _baseDefense, int _baseSpeed, int _baseAccuracy)
