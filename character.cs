@@ -19,13 +19,18 @@ namespace ProjectGuild
   class character
   {
     string name;
+    int level;
+    string race;
+    string role;
     int baseHealth, baseAttack, baseDefense, baseSpeed, baseAccuracy;
     int currentHealth, currentAttack, currentDefense, currentSpeed, currentAccuracy;
     Move [4] moves;
     
-    public character (string _name, Move [4] _moves, int _baseHealth, int _baseAttack, int _baseDefense, int _baseSpeed, int _baseAccuracy)
+    public character (string _name, string _race, string _role, Move [4] _moves, int _baseHealth, int _baseAttack, int _baseDefense, int _baseSpeed, int _baseAccuracy)
     {
       name = _name;
+      race = _race;
+      role = _role;
       move = _moves;
       baseHealth = _baseHealth;
       baseAttack = _baseAttack;
@@ -48,6 +53,10 @@ namespace ProjectGuild
     #region getBaseInfo
     public string getName()
     { return name; }
+    public getRace()
+    { return race; }
+    public getRole()
+    { return role; }
     public Move [] getMoves()
     { return moves; }
     public int getBaseHealth()
