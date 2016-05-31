@@ -18,7 +18,11 @@ namespace ProjectGuild
 {
   class Player
   {
-    character [] charctersOwned;
+    /** Array of all characters*/
+    character [] characters;
+    /** Array of all characters in use*/
+    character [] currentParty;
+    
     
   }
 }
