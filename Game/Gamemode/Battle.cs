@@ -90,5 +90,14 @@ namespace ProjectGuild
 
         }
         #endregion
+        
+        public void turn()
+        {
+            bool first;
+            if(player.getCurrentSpeed() > opponent.getCurrentSpeed())
+                first = true;
+            else
+                first = false;
+        }
     }
 }
