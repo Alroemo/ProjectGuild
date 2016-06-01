@@ -108,7 +108,9 @@ namespace ProjectGuild
             {
                 for(int j = 0; j < width; j++)
                 {
-                    if(area[i][j] == '#')
+                    if(hallCount == Complexity)
+                        break;
+                    else if(area[i][j] == '#')
                     {
                         int [] possibleHalls;
                         int numOfHalls = 0;
