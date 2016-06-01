@@ -1,6 +1,20 @@
+
+#region File Description
+//-----------------------------------------------------------------------------
+// PlatformerGame.cs
+//
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//-----------------------------------------------------------------------------
+#endregion
+
+using System;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace ProjectGuild
 {
@@ -11,12 +25,18 @@ namespace ProjectGuild
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
+        Map starterMap = new Map(5, "Small");
+        Area loadingAreaNum;
+        Area currentAreaNum;
+        
         Player player;
         int partyCount = 4;
         int playerCharacterCount;
         int maxPlayerCharacter;
         Character[] playerCharacters;
         Character[] currentPlayerParty;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -34,8 +54,8 @@ namespace ProjectGuild
             // TODO: Add your initialization logic here
             maxPlayerCharacter = 30;
             playerCharacterCount = 0;
+            currentAreaNum = 0;
             player = new Player(playerCharacters, currentPlayerParty, partyCount, maxPlayerCharacter, playerCharacterCount);
-            
             base.Initialize();
         }
 
@@ -84,6 +104,11 @@ namespace ProjectGuild
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null,null, globalTransformation);
+
+            starterMap.Draw(currentAreaNum, spriteBatch);
+            
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
