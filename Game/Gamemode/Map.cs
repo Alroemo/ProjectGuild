@@ -38,7 +38,7 @@ namespace ProjectGuild
       
       createAreas();
     }
-    
+        
     //Creates the areas
     private void createAreas()
     {
