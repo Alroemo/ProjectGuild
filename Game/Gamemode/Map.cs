@@ -80,6 +80,8 @@ namespace ProjectGuild
     private Point exit = InvalidPosition;
     private static readonly Point InvalidPosition = new Point(-1, -1);
     
+    public Area getArea(int areaNum)
+    { return area[areaNum]}
     public bool ReachedExit
     {
       get { return reachedExit; }
