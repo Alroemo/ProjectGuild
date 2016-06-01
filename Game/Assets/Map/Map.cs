@@ -28,14 +28,13 @@ namespace ProjectGuild
     //number of ares per map zone
     int areaCount;
     string size;
-    int itemAverage;
+
     Random Rand = new Random();
     
-    public Map(int _areaCount, string _size, int _itemAverage)
+    public Map(int _areaCount, string _size)
     {
       areaCount = _areaCount;
       size = _size;
-      itemAverage = _itemAverage;
     }
     
     //Creates the areas
@@ -66,6 +65,7 @@ namespace ProjectGuild
           roomCount = Rand.Next(7,9);
           itemCount = Rand.Next(0,7);
         }
+        area[i] = new Area(width, height, roomCount, (roomCount * (3/2)), itemCount);
       }
     }
     // Entities in the level.
@@ -74,6 +74,7 @@ namespace ProjectGuild
       get { return player; }
     }
     Player player;
+    
     private List<Enemy> enemies = new List<Enemy>();
     private Vector2 start;
     private Point exit = InvalidPosition;
@@ -91,32 +92,153 @@ namespace ProjectGuild
     }
     ContentManager content; 
     
-    /// <summary>
-    /// Iterates over every tile in the structure file and loads its
-    /// appearance and behavior. This method also validates that the
-    /// file is well-formed with a player start point, exit, etc.
-    /// </summary>
-    /// <param name="fileStream">
-    /// A stream containing the tile data.
-    /// </param>
-    private void LoadTiles(Stream fileStream)
+    #region tiles
+    private void loadTiles(Area area)
     {
-      // Load the level and ensure all of the lines are the same length.
-      int width;
-      List<string> lines = new List<string>();
-      using (StreamReader reader = new StreamReader(fileStream))
+      // Allocate the tile grid.
+      tiles = new Tile[width, lines.Count];
+            
+      for (int y = 0; y < area.getHeight(); ++y)
+            {
+                for (int x = 0; x < area.getWidth(); ++x)
+                {
+                    // to load each tile.
+                    char tileType = lines[y][x];
+                    tiles[x, y] = LoadTile(tileType, x, y);
+                }
+            }
+    }
+    
+    private void loadTile(char tileType, int x, int y)
+    {
+      switch (tileType)
       {
-        string line = reader.ReadLine();
-        width = line.Length;
-        while (line != null)
+        case '.':
+          return LoadVarietyTile("Walls", 1, TileCollision.Impassable);
+        case '#':
+          return LoadVarietyTile("Floor", 1, TileCollision.Passable);
+        case 's':
+          return LoadStartTile(x,y);
+        case 'e':
+          return LoadExitTile(x,y);
+        case 'i':
+          return LoadItemTile(x,y);
+      }
+    }
+    private Tile LoadTile(string name, TileCollision collision)
+    {
+      return new Tile(Content.Load<Texture2D>(name), collision);
+    }
+    /// <summary>
+    /// Instantiates a player, puts him in the level, and remembers where to put him when he is resurrected.
+    /// </summary>
+    private Tile LoadStartTile(int x, int y)
+    {
+      if (Player != null)
+      throw new NotSupportedException("A level may only have one starting point.");
+
+      start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
+      player = new Player(this, start);
+
+      return new Tile(null, TileCollision.Passable);
+    }
+
+    /// <summary>
+    /// Remembers the location of the level's exit.
+    /// </summary>
+    private Tile LoadExitTile(int x, int y)
+    {
+      if (exit != InvalidPosition)
+        throw new NotSupportedException("A level may only have one exit.");
+
+      exit = GetBounds(x, y).Center;
+
+      return LoadTile("Exit", TileCollision.Passable);
+    }
+    
+    private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision)
+    {
+      int index = random.Next(variationCount);
+      return LoadTile(baseName + index, collision);
+    }
+    
+    /// <summary>
+    /// Instantiates a gem and puts it in the level.
+    /// </summary>
+    private Tile LoadItemTile(int x, int y)
+    {
+      Point position = GetBounds(x, y).Center;
+      gems.Add(new Gem(this, new Vector2(position.X, position.Y)));
+
+      return new Tile(null, TileCollision.Passable);
+    }
+    #endregion
+    
+    public void update( GameTime gameTime, KeyboardState keyboardState, GamePadState gamePadState)
+    {
+      if(reachedExit)
+      {
+        
+      }
+      else
+      {
+        Player.Update(gameTime, keyboardState, gamePadState);
+      }
+    }//end of update
+    
+    private void updateItems()
+    {
+      
+    }
+    
+    #region draw
+    public void drawTiles(SpriteBatch spriteBatch)
+    {
+      // For each tile position
+      for (int y = 0; y < Height; ++y)
+      {
+        for (int x = 0; x < Width; ++x)
         {
-          lines.Add(line);
-          if (line.Length != width)
-            throw new Exception(String.Format("The length of line {0} is different from all preceeding lines.", lines.Count));
-          line = reader.ReadLine();
+          // If there is a visible tile in that position
+          Texture2D texture = tiles[x, y].Texture;
+          if (texture != null)
+          {
+            // Draw it in screen space.
+            Vector2 position = new Vector2(x, y) * Tile.Size;
+            spriteBatch.Draw(texture, position, Color.White);
+          }
         }
       }
-      
-      
-  }
+    }
+    
+    public void Draw(SpriteBatch spriteBatch)
+    {
+      ScrollCamera(spriteBatch.GraphicsDevice.Viewport);
+      Matrix cameraTransform = Matrix.CreateTranslation(-cameraPosition, 0.0f, 0.0f);
+      spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null, cameraTransform);
+      DrawTiles(spriteBatch);
+    
+      Player.Draw(spriteBatch);
+  
+    }
+    
+    private void ScrollCamera(Viewport viewport)
+    {
+      // Calculate the edges of the screen.
+      float marginWidth = viewport.Width * ViewMargin;
+      float marginLeft = cameraPosition + marginWidth;
+      float marginRight = cameraPosition + viewport.Width - marginWidth;
+
+      // Calculate how far to scroll when the player is near the edges of the screen.
+      float cameraMovement = 0.0f;
+      if (Player.Position.X < marginLeft)
+        cameraMovement = Player.Position.X - marginLeft;
+      else if (Player.Position.X > marginRight)
+        cameraMovement = Player.Position.X - marginRight;
+
+      // Update the camera position, but prevent scrolling off the ends of the level.
+      float maxCameraPosition = Tile.Width * Width - viewport.Width;
+      cameraPosition = MathHelper.Clamp(cameraPosition + cameraMovement, 0.0f, maxCameraPosition);
+    }
+    #endregion
 }
