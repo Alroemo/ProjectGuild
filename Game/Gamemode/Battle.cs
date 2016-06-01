@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,20 @@ namespace ProjectGuild
                 first = true;
             else
                 first = false;
+        }
+        
+        public void makeChoice()
+        {
+            string [] main = {"Attack", "Defend", "Item", "Switch", "Flee"};
+            string [] attack = { "move1", "move2", "move3", "move4"};
+            string [] charSwitch = {"char1", "char2","char3", "char4"};
+            for(int i = 0; i < 4; i++)
+            {
+                attack[i] = currentPlayerCharacter.getMove[i].getName(); 
+                charSwitch[i] = player.getCharacter[i].getName();
+            }
+            
+        
         }
     }
 }
