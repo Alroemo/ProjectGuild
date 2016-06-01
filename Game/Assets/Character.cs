@@ -11,11 +11,18 @@ namespace ProjectGuild
         string name;
         int level;
         string role;
-        int baseHealth, baseAttack, baseDefense, baseSpeed, baseAccuracy;
-        int currentHealth, currentAttack, currentDefense, currentSpeed, currentAccuracy;
+        int baseHealth, baseAttack, baseDefense, baseSpeed, baseAccuracy, baseIntellegence;
+        int currentHealth, currentAttack, currentDefense, currentSpeed, currentAccuracy, currentIntellegence;
         Move[] moves;
-
-        public Character(string _name, Move [] _moves, string _role, int _baseHealth, int _baseAttack, int _baseDefense, int _baseSpeed, int _baseAccuracy)
+        
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+        Vector2 position;
+        
+        public Character(string _name, Move [] _moves, string _role, int _baseHealth, int _baseAttack, int _baseDefense, int _baseSpeed, int _baseAccuracy, int_baseIntellegence)
         {
             name = _name;
             role = _role;
@@ -25,7 +32,8 @@ namespace ProjectGuild
             baseDefense = _baseDefense;
             baseSpeed = _baseSpeed;
             baseAccuracy = _baseAccuracy;
-
+            
+            this.initalizeCharacter();
         }
 
         public void initalizeCharacter()
@@ -35,8 +43,9 @@ namespace ProjectGuild
             currentDefense = baseDefense;
             currentSpeed = baseSpeed;
             currentAccuracy = baseAccuracy;
+            currentIntellegence = baseIntellegence;
         }
-
+        #region stats
         /** Fuctions to get character information and stats*/
         #region getBaseInfo
         public string getName()
@@ -123,5 +132,22 @@ namespace ProjectGuild
         public void changeBaseAccuracy(int baseIncrease)
         { baseAccuracy += baseIncrease; }
         #endregion
+        #endregion
+        
+        public void update()
+        {
+            
+        }
+        
+        public void attack(Character opponent)
+        {
+            int damage = currentAttack;
+            opponent.setHealth(damage);
+        }
+        
+        public void draw(SpriteBatch spriteBatch)
+        {
+            sprite.Draw(gameTime, spriteBatch, Position);
+        }
     }
 }
