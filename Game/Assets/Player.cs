@@ -15,7 +15,8 @@ namespace ProjectGuild
         int currentOwnedCharactersAmmount;
 
 
-        public Player(Character[] _characters, Character[] _currentParty, int _partyCount, int _maxCharacters, int _curentOwnedCharactersAmmount) : base (_currentParty, _partyCount)
+        public Player(Character _currentCharacter, Character[] _characters, Character[] _currentParty, int _partyCount, int _maxCharacters, int _curentOwnedCharactersAmmount) 
+        : base (_currentCharacter, _currentParty, _partyCount)
         {
             characters = _characters;
             maxCharacters = _maxCharacters;
