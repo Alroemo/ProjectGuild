@@ -35,6 +35,8 @@ namespace ProjectGuild
     {
       areaCount = _areaCount;
       size = _size;
+      
+      createAreas();
     }
     
     //Creates the areas
@@ -81,7 +83,11 @@ namespace ProjectGuild
     private static readonly Point InvalidPosition = new Point(-1, -1);
     
     public Area getArea(int areaNum)
-    { return area[areaNum]}
+    { 
+      return area[areaNum];
+      
+    }
+    
     public bool ReachedExit
     {
       get { return reachedExit; }
@@ -194,8 +200,9 @@ namespace ProjectGuild
     }
     
     #region draw
-    public void drawTiles(SpriteBatch spriteBatch)
+    public void drawTiles(int areaNum, SpriteBatch spriteBatch)
     {
+      this.loadTiles(area[areaNum]);
       // For each tile position
       for (int y = 0; y < Height; ++y)
       {
@@ -213,12 +220,12 @@ namespace ProjectGuild
       }
     }
     
-    public void Draw(SpriteBatch spriteBatch)
+    public void Draw(int areaNum, SpriteBatch spriteBatch)
     {
       ScrollCamera(spriteBatch.GraphicsDevice.Viewport);
       Matrix cameraTransform = Matrix.CreateTranslation(-cameraPosition, 0.0f, 0.0f);
       spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullCounterClockwise, null, cameraTransform);
-      DrawTiles(spriteBatch);
+      DrawTiles(areaNum, spriteBatch);
     
       Player.Draw(spriteBatch);
   
