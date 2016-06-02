@@ -16,6 +16,24 @@ namespace ProjectGuild
 {
   class Dialog
   {
+    SpriteFont spriteFont; 
+    Rectangle dialogBox;
+    string dialog
+    Vector2 wordPosition;
+    
+    public Dialog(_spriteFont, string dialog)
+    {
+      spriteFont = _spriteFont;
+      dialog = _dialog;
+      dialogBox = new Rectangle(10, 580, 760, 200);
+      wordPosition = new vector2(15, 585);
+    }
+    
+    publiv void draw(SpriteBatch spriteBatch)
+    {
+      spriteBatch.draw((Content.load<Texture2D>("dialogBox")), dialogBox, Color.White);
+      spriteBatch.drawString(spriteFont, dialog, wordPosition, Color.Yellow);
+    }
     
   }
 }
