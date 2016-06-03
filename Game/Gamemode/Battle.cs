@@ -15,6 +15,12 @@ namespace ProjectGuild
         Opponent opponent;
         Character currentPlayerCharacter;
         Character currentEnemyCharacter;
+        vector2 pointerPosition;
+        bool playerTurn;
+        string [] mainChoices = {"Attack", "Defend", "Item", "Switch", "Flee"};
+        Move [] attack = { "move1", "move2", "move3", "move4"};
+        Character [] charSwitch = {"char1", "char2","char3", "char4"};
+        
         public Battle(Player _player, Fighter _opponent)
         {
             player = _player;
@@ -26,7 +32,9 @@ namespace ProjectGuild
             currentPlayerCharacter = player.getPartyCharacter(0);
             currentEnemyCharacter = opponent.getPartyCharacter(0);
             currentPlayerCharacter.initalizeCharacter();
-            currentEnemyCharacter.initalizeCharacter();
+            opponent.initalize();
+            pointerPosition = new vector(0,0);
+            playerTurn = true;
         }
 
         public void changePlayerCharacter(int partyNum)
@@ -34,6 +42,8 @@ namespace ProjectGuild
         public void changeEnemyCharacter(int partyNum)
         { currentEnemyCharacter = opponent.getPartyCharacter(partyNum); }
 
+        
+        
         #region attack
         public void playerAttackEnemy(int moveNum)
         {
@@ -90,43 +100,107 @@ namespace ProjectGuild
             {
                 currentPlayerCharacter.ChangeCurrentAccuracy(damage, changeable);
             }
-
+            
         }
         #endregion
         
-        public void turn()
+        public bool turn()
         {
             bool first;
             if(player.getCurrentSpeed() > opponent.getCurrentSpeed())
                 first = true;
             else
                 first = false;
+            return fiirst;
         }
         
-        public void makeChoice(int choiceTier, int choice)
+        public void update(KeyboardState keyboardState)
         {
-            string [] main = {"Attack", "Defend", "Item", "Switch", "Flee"};
-            Move [] attack = { "move1", "move2", "move3", "move4"};
-            Character [] charSwitch = {"char1", "char2","char3", "char4"};
             for(int i = 0; i < 4; i++)
             {
                 attack[i] = currentPlayerCharacter.getMove[i]; 
                 charSwitch[i] = player.getCharacter[i];
             }
             
-            switch(choice):
-                //attack
-                case 1:
-                    makeChoice(2,0);
-                //defend
-                case 2:
-                    player.getCurrentCharacter.defend();
-                case 3:
-                    player.openItemList();
-                case 4:
-                    player.openCurrentParty();
-                case 5:
-                    this.flee;
+            int currentChoice = 0;
+            KeyboardState oldKeyState = keyboardState;
+            if(playerTurn == true)
+            {
+                if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
+                {
+                    if(currentChoice <= 5)
+                        currentChoice++;
+                }
+                if (keyboardState.IsKeyDown(Keys.Up) ||  keyboardState.IsKeyDown(Keys.W))
+                {
+                    if(currentChoice > 0)
+                        currentChoice--;
+                }
+                if (keyboardState.IsKeyDown(Keys.Enter) ||  keyboardState.IsKeyDown(Keys.E))
+                {
+                    //this.makeChoice(currentChoice);
+                     //attack
+                    if(currentChoice == 1)
+                    {
+                        int attackChoice = 0;
+                        if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
+                        {
+                            if(attackChoice < 4)
+                                attackChoice++;
+                        }
+                        if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
+                        {
+                            if(attackChoice >= 0)
+                                attackChoice--;   
+                        }
+                        if(keyboardState.IsKeyDown(Keys.Enter) ||  keyboardState.IsKeyDown(Keys.E))
+                        {
+                            runTurns(attackChoice);
+                            playerTurn = false;
+                        }
+                    }
+                    //defend
+                    else if(currentChoice == 2)
+                    {
+                        player.getCurrentCharacter.defend();
+                        runTurns(-1);
+                        playerTurn = false;
+                    }
+                    else if(currentChoice == 3)
+                        player.openItemList();
+                    else if(currentChoice == 4)
+                        player.openCurrentParty();
+                    else
+                    {
+                        this.playerFlee();
+                        playerTurn = false;
+                    }
+                }
+            }
+        }
+        
+        public void runTurns(int playerChoice)
+        {
+            bool playerFirst = this.getTurn();
+            int enemyMove = Rand.next(0,3);
+            if(playerChoice == -1)
+            {
+                enemyAttackPlayer(enemyMove);
+                playerTurn = true;    
+            }
+            if(playerFirst)
+            {
+                playerAttackEnemy(playerChoice);
+                enemyAttackPlayer(enemyMove);
+                playerTurn = true;
+            }
+            else if(!playerFirst)
+            {
+                enemyAttackPlayer(enemyMove);
+                playerAttackEnemy(playerChoice);
+                playerTurn = true;
+            }
+            
         }
         
         public void playerFlee()
@@ -139,9 +213,17 @@ namespace ProjectGuild
                 
             if(flee < fleeChance)
                 this.endGame();
+            else
+                runTurns(-1);
         }
         
-        public void endBattle(int xp, Item rewardItem, int itemChance)
+        
+        public void endBattle()
+        {
+            
+        }
+        
+        public void draw(SpriteFont spriteFont, SpriteBatch spriteBatch)
         {
             
         }
