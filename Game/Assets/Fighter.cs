@@ -14,11 +14,11 @@ namespace ProjectGuild
         Character[] currentParty;
         int partyCount;
 
-        public Fighter(Character _currentCharacter, Character[] _currentParty, int _partyCount)
+        public Fighter(Character _currentCharacter, Character[] _currentParty)
         {
             currentCharacter = _currentCharacter;
-            partyCount = _partyCount;
             currentParty = _currentParty;
+            partyCount  = currentParty.Length;
         }
 
         #region getFunctions
@@ -28,13 +28,11 @@ namespace ProjectGuild
         { return currentCharacter; }
         public Character getPartyCharacter(int charNum)
         { return currentParty[charNum]; }
+        public int getPartyCount()
+        { return partyCount; }
         #endregion
 
-        public void initalize()
-        {
-            partyCount = 0;
-            currentCharacter = currentParty[0];
-        }
+
         
         public void changeCurrentCharacter(int charNum)
         {
