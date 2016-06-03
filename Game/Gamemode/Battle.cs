@@ -21,8 +21,10 @@ namespace ProjectGuild
         Move [] attack = { "move1", "move2", "move3", "move4"};
         Character [] charSwitch = {"char1", "char2","char3", "char4"};
         
-        public Battle(Player _player, Fighter _opponent)
+        public Battle(IServiceProvider serviceProvider, Player _player, Fighter _opponent)
         {
+            content = new ContentManager(serviceProvider, "Content");
+            
             player = _player;
             opponent = _opponent;
         }
@@ -223,8 +225,11 @@ namespace ProjectGuild
             
         }
         
-        public void draw(SpriteFont spriteFont, SpriteBatch spriteBatch)
+        public void Draw(SpriteFont spriteFont, SpriteBatch spriteBatch)
         {
+            //Content.Load<Texture2D>("Tiles/" + name)
+            spriteBatch.draw((Content.Load<Texture2D>(currentPlayerCharacter.getName())), new Vector2(300,50), Color.White);
+            spriteBatch.draw((Content.Load<Texture2D>(currentEnemyCharacter.getName())), new Vector2(300,50), Color.White);
             
         }
     }
