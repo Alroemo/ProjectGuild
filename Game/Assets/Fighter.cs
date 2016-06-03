@@ -20,7 +20,13 @@ namespace ProjectGuild
             currentParty = _currentParty;
             partyCount  = currentParty.Length;
         }
-
+        
+        public void initalize()
+        {
+            for(int i = 0; i < partyCount; i++)
+                currentParty[i].initalizeCharacter(); 
+        }
+        
         #region getFunctions
         public Character[] getPartyCharacters()
         { return currentParty; }
