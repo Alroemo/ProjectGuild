@@ -122,24 +122,19 @@ namespace ProjectGuild
             switch (tileType)
             {
                 // Blank space
-                case '.':
+                case 'O':
                     return new Tile(null, TileCollision.Passable);
 
                 // Exit
-                case 'X':
+                case 'E':
                     return LoadExitTile(x, y);
-
-                // Floating platform
-                case '-':
-                    return LoadTile("Platform", TileCollision.Platform);
-
 
                 // Platform block
                 case '~':
                     return LoadVarietyTile("BlockB", 2, TileCollision.Platform);
 
                 // Passable block
-                case ':':
+                case 'S':
                     return LoadVarietyTile("BlockB", 2, TileCollision.Passable);
 
                 // Player 1 start point
