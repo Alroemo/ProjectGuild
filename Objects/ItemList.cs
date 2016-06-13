@@ -17,6 +17,13 @@ namespace ProjectGuild
 {
   class ItemList
   {
+    public Item [] items = {
+      
+    };
     
+    public Item getItem(int num)
+    {
+      return items[num];
+    }
   }
 }
