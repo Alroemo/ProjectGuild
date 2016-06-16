@@ -17,7 +17,7 @@ namespace ProjectGuild
   class moveList
   {
     public Move [] moves = {
-      
+      new Move("testMove", "Physical", 10, 10, "Basic")
     };
     
     public Move getMove(int num)
