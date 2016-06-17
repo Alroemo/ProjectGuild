@@ -16,6 +16,26 @@ namespace ProjectGuild
 {
   class Quest
   {
+    int id;
+    string name;
+    string description;
+    string plotEffect;
     
+    public Quest(int _id, string _name, string _description, string _plotEffect)
+    {
+      id = _id;
+      name = _name;
+      description = _description;
+      plotEffect = _plotEffect;
+    }
+    
+    public int getID()
+    { return id; }
+    public string getName()
+    { return name; }
+    public string description()
+    { return description; }
+    public string getEffect()
+    { return plotEffect; }
   }
 }
