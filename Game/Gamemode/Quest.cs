@@ -20,6 +20,8 @@ namespace ProjectGuild
     string name;
     string description;
     string plotEffect;
+    bool assigned;
+    bool complete;
     
     public Quest(int _id, string _name, string _description, string _plotEffect)
     {
@@ -27,6 +29,8 @@ namespace ProjectGuild
       name = _name;
       description = _description;
       plotEffect = _plotEffect;
+      assigned = false;
+      complete = false;
     }
     
     public int getID()
@@ -37,5 +41,15 @@ namespace ProjectGuild
     { return description; }
     public string getEffect()
     { return plotEffect; }
+    
+    public bool getAssigned()
+    { return assigned; }
+    public bool getCompleted()
+    { return getCompleted; }
+    
+    public void setAssigned(bool condition)
+    { assigned = condition; }
+    public void setCompleted(bool condition)
+    { completed = condition; }
   }
 }
