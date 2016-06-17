@@ -17,6 +17,7 @@ namespace ProjectGuild
 {
   class QuestList
   {
+    Quest [] questlist;
     
   }
 }
