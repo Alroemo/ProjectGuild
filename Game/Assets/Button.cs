@@ -17,6 +17,26 @@ namespace ProjectGuild
 {
   class Button
   {
+    Texture2D texture;
+    vector2 position;
+    bool pressed;
     
+    public Button(Texture2D _texture, vector2 _position)
+    {
+      texture = _texture;
+      position = _position;
+    }
+    
+    
+    
+    public void Update()
+    {
+      
+    }
+    
+    public void Draw(SpriteBatch spriteBatch)
+    {
+      spriteBatch.Draw(texture, position, color.White);
+    }
   }
 }
