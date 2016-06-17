@@ -21,7 +21,8 @@ namespace ProjectGuild
         Move [] attack = { "move1", "move2", "move3", "move4"};
         Character [] charSwitch = {"char1", "char2","char3", "char4"};
         Button attackButton, defendButton, itemButton, switchButton, fleeButton;
-        Button [] moveButton;
+        AttackList attackList;
+        int choiceLevel;
         
         public Battle(IServiceProvider serviceProvider, Player _player, Fighter _opponent)
         {
@@ -35,12 +36,15 @@ namespace ProjectGuild
             itemButton = new Button(Content.Load<Texture2D>("ItemButton"), new vector2(10, 560));
             switchButton = new Button(Content.Load<Texture2D>("SwitchButton"), new vector2(10, 590));
             fleeButton = new Button(Content.Load<Texture2D>("fleeButton"), new vector2(10, 620));
+            
+            attackList = new AttackList(spriteFont, attack);
 
             
         }
 
         public void startBattle()
         {
+            choiceLevel = 0;
             currentPlayerCharacter = player.getPartyCharacter(0);
             currentEnemyCharacter = opponent.getPartyCharacter(0);
             currentPlayerCharacter.initalizeCharacter();
@@ -128,17 +132,30 @@ namespace ProjectGuild
         
         public void update(KeyboardState keyboardState)
         {
+            int choiceAttack;
+            
             for(int i = 0; i < 4; i++)
             {
                 attack[i] = currentPlayerCharacter.getMove[i]; 
                 charSwitch[i] = player.getCharacter[i];
             }
+            attackList = new AttackList(spriteFont, attack);
             
-            attackButton.update();
-            defendButton.update();
-            itemButton.update();    
-            switchButton.update();
-            fleeButton.update();
+            if(choiceLevel == 0)
+            {
+                attackButton.update();
+                defendButton.update();
+                itemButton.update();    
+                switchButton.update();
+                fleeButton.update();
+            }
+            if(choiceLevel == 1)
+            {
+                attackList.update(keyboardState);
+                if(keyboardState.isKeyDown)
+                    choiceAttak = attackList.getFinalChoice();            
+                
+            }
         }
         
         public void runTurns(int playerChoice)
