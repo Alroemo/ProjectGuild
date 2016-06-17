@@ -1,4 +1,8 @@
 6/16: Transfered level.cs to main program
 6/17: Edited dialog.cs to take in multiple lines instead of one for better formatting
       Added string array plotChoice to Player.cs to hold the variables of the plot choices the player made throughout the game
+            player choices are stored as string letters. Story will be primarly based on what boss you defeat and when.
+                  ex: jF1 (first one is what faction you join), n2, w2, t4, d2, t3, w4, t2, t1, d4, w3, n1, d3, n4, n3, d1, w1 would be a full playthrough where the player encounters each and every boss
+                  
+            
       
