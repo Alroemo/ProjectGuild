@@ -20,6 +20,8 @@ namespace ProjectGuild
         string [] mainChoices = {"Attack", "Defend", "Item", "Switch", "Flee"};
         Move [] attack = { "move1", "move2", "move3", "move4"};
         Character [] charSwitch = {"char1", "char2","char3", "char4"};
+        Button attackButton, defendButton, itemButton, switchButton, fleeButton;
+        Button [] moveButton;
         
         public Battle(IServiceProvider serviceProvider, Player _player, Fighter _opponent)
         {
@@ -27,6 +29,14 @@ namespace ProjectGuild
             
             player = _player;
             opponent = _opponent;
+            
+            attackButton = new Button(Content.Load<Texture2D>("AttackButton"), new vector2(10, 500));
+            defendButton = new Button(Content.Load<Texture2D>("DefendButton"), new vector2(10, 530));
+            itemButton = new Button(Content.Load<Texture2D>("ItemButton"), new vector2(10, 560));
+            switchButton = new Button(Content.Load<Texture2D>("SwitchButton"), new vector2(10, 590));
+            fleeButton = new Button(Content.Load<Texture2D>("fleeButton"), new vector2(10, 620));
+
+            
         }
 
         public void startBattle()
@@ -124,61 +134,11 @@ namespace ProjectGuild
                 charSwitch[i] = player.getCharacter[i];
             }
             
-            int currentChoice = 0;
-            KeyboardState oldKeyState = keyboardState;
-            if(playerTurn == true)
-            {
-                if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
-                {
-                    if(currentChoice <= 5)
-                        currentChoice++;
-                }
-                if (keyboardState.IsKeyDown(Keys.Up) ||  keyboardState.IsKeyDown(Keys.W))
-                {
-                    if(currentChoice > 0)
-                        currentChoice--;
-                }
-                if (keyboardState.IsKeyDown(Keys.Enter) ||  keyboardState.IsKeyDown(Keys.E))
-                {
-                    //this.makeChoice(currentChoice);
-                     //attack
-                    if(currentChoice == 1)
-                    {
-                        int attackChoice = 0;
-                        if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
-                        {
-                            if(attackChoice < 4)
-                                attackChoice++;
-                        }
-                        if (keyboardState.IsKeyDown(Keys.Down) ||  keyboardState.IsKeyDown(Keys.S))
-                        {
-                            if(attackChoice >= 0)
-                                attackChoice--;   
-                        }
-                        if(keyboardState.IsKeyDown(Keys.Enter) ||  keyboardState.IsKeyDown(Keys.E))
-                        {
-                            runTurns(attackChoice);
-                            playerTurn = false;
-                        }
-                    }
-                    //defend
-                    else if(currentChoice == 2)
-                    {
-                        player.getCurrentCharacter.defend();
-                        runTurns(-1);
-                        playerTurn = false;
-                    }
-                    else if(currentChoice == 3)
-                        player.openItemList();
-                    else if(currentChoice == 4)
-                        player.openCurrentParty();
-                    else
-                    {
-                        this.playerFlee();
-                        playerTurn = false;
-                    }
-                }
-            }
+            attackButton.update();
+            defendButton.update();
+            itemButton.update();    
+            switchButton.update();
+            fleeButton.update();
         }
         
         public void runTurns(int playerChoice)
@@ -229,8 +189,16 @@ namespace ProjectGuild
         {
             //Content.Load<Texture2D>("Tiles/" + name)
             spriteBatch.draw((Content.Load<Texture2D>(currentPlayerCharacter.getName())), new Vector2(300,50), Color.White);
-            spriteBatch.draw((Content.Load<Texture2D>(currentEnemyCharacter.getName())), new Vector2(300,50), Color.White);
+            spriteBatch.draw((Content.Load<Texture2D>(currentEnemyCharacter.getName())), new Vector2(600,50), Color.White);
             
+            if(playerTurn)
+            {
+                attackButton.Draw(spriteBatch);
+                defendButton.Draw(spriteBatch);
+                itemButton.Draw(spriteBatch);
+                switchButton.Draw(spriteBatch);
+                fleeButton.Draw(spriteBatch);
+            }
         }
     }
 }
