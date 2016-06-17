@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace ProjectGuild
 {
-  class Plot
+  class Quest
   {
     
   }
