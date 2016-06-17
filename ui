@@ -1,0 +1,33 @@
+area exploration:
+  Camera will follow player's first character. Encounters appear from nowhere
+  Each area will follow the theme it was given to determine where the player is
+menu:
+  Has party info, can sort order, change items, use items, and quest list
+  info will appear as a detailed list from left to right, character's detailed sprite, current health, attack, defense, speed, intel
+  items will be a detailed list with multiple sections (weapons, consumables, key items) that will show the name and stock count (key will not show stock count)
+    The current selected item will show details on the lower screen with a symbol, name, description, and item stats
+    Selecting the item will ask you whether to use(if consumable), equip(if weapon),discard, or cancel.
+      It will then show the list of your current characters and ask which one to use/equip it to.
+  Quest list will have a list of the the player's accepted quest.
+    The list will just show the name
+    Selecting one will show the quest description, who assigned it, and the location
+  
+npc dialog and interaction:
+  The world will still appear with the game sprites. A box will appear on the bottom with the dialog. 
+    Important npcs will have a detailed sprite to show significance with the particular emotion they would convey
+    Player characters will not have dialog and will remain silent
+    
+Battle:
+  Each battle is a 1v1 and each side can switch between characters. Left side will show the player's chosen character and the right side will show the opponent's chosen character
+    Both sprites will have the detailed sprite with both facing each other. They will convey emotions based on health (calm-worried-anger)
+  A bottom box will have the choices for the player on what to do(attack, defend, switch, item, run)
+    Each button will be stacked on one another on the bottom left side leaving the middle and right side open
+    Selecting attack will add boxes to the right which will show the attack moves
+    Selcting items will show the list of consumables. Each will show the name and item stock. A dialog box on the right appears that shows the item details
+    Selcting switch will show other characters. It will show the character name, sprite, current health, and level. A dialog box will show the character stats
+  After the choices is finalised, the buttons will disappear and a dialog box will appear with both sides' actions and results.
+  Health will be on top of the character's sprite as a bar
+  
+    
+
+    
