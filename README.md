@@ -1,5 +1,6 @@
-# ProjectStars
+# ProjectGuild
 A game made with Monogame and C#
+ProjectGuild ended. Moving development to work with Unity instead
 
 <h2>Description</h2>
 <p>A 2D adventure turned-based RPG game. Makes use of players collecting characters to follow them throughout the game and gain experience and new abilities. Players will follow a storyline with multiple choices and factions that the player will have to decide on that will impact the course of the story.</p>
