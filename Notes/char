@@ -1,0 +1,51 @@
+Strike: Goes straight into combat
+. Striker: each attack gets weaker but faster the more used.  (+++)
+    System: converve attacks, promote play for prefered play
+    Basic: Meele Attack (after X attacks, a blade falls off)
+    1: Callback (All fallen blades return)
+. Hunter: Tosses spear that damages any in its way. Requires pickup. (++)
+    System: large clearing, promotes getting up close to recover health
+    Basic: Long Range Throw (unable to attack until picked up, recovers previous health when picked up)
+. Merc: Can use enemies as shields and charge (+++)
+    System: get up and close, promotes grabbing to heal
+    Basic: Short range buckshot
+    1. Grab (Enemy shield heals when attacked)
+    2. Charge
+    
+Caster: Casts away, weak when close
+. Wanderer: Has companion dog. Based on companion's health (++)
+    System: Helps aid from afar. Calls to not help when low on health
+    Basic: Long Range Aim
+    1. Set Target (sets comapanion to go at last shot)
+    2. Call Back (calls companion back to heal)
+    3. Settle (allows for attack)
+. Elemental: spawns energy balls that can be turned to aoe damage (+++)
+    System: Use of careful attack and smart placement
+    Basic: Slow moving ball
+    1. Transform (does aoe to fired balls)
+. Techno: fires beam that does aoe on facing direction. (+)
+    System: Great for clearing waves up close but calls to watch your own status
+    Basic: mid range beam
+    1. Beam (heats up causing more use of energy)
+    2. Cooldown 
+
+Tank: Lots of health
+. Warden: has 9 sets of lives. Each one lost gives him a boost (+)
+  System: goes close to do damage and promotes losing to be more powerful
+  Basic: Meele Swing
+  1. Break Case (loses life for stronger lost boost)
+. Cranker: Stacks up damage the more you attack (+)
+  System: Promotes constant action, but calls to be careful about wasting
+  Basic: mid range fire 
+
+Support: aids team
+. Jumper: heals allies and gives temporary boost (++)
+  System: Promotes allies to get injured to get boost
+  Basic: Short range lightning (heals allies and harms enemies)
+. Dealer: Gives allies extra temporary health but drains and harms normal health (+)
+  System: Promotes support and aid but careful in not overusing heals
+  Basic: Mid Range 6 round
+  1. Deal (gives extra health to allies)
+. Floral: casts vines that stun and heal allies (+++)
+  System: Personally aid allies but cooperation between the two
+  Basic: Mid range Vine (drains enemy health and heals allies but limits their movement)
