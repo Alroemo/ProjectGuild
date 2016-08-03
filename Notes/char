@@ -25,18 +25,26 @@ Caster: Casts away, weak when close
     1. Transform (does aoe to fired balls)
 . Techno: fires beam that does aoe on facing direction. (+)
     System: Great for clearing waves up close but calls to watch your own status
+    Health based on energy count, recovers over time
     Basic: mid range beam
     1. Beam (heats up causing more use of energy)
     2. Cooldown 
 
 Tank: Lots of health
 . Warden: has 9 sets of lives. Each one lost gives him a boost (+)
-  System: goes close to do damage and promotes losing to be more powerful
-  Basic: Meele Swing
+    System: goes close to do damage and promotes losing to be more powerful
+    Basic: Meele Swing
   1. Break Case (loses life for stronger lost boost)
 . Cranker: Stacks up damage the more you attack (+)
-  System: Promotes constant action, but calls to be careful about wasting
-  Basic: mid range fire 
+  Health based on ammo count
+    System: Promotes constant action, but calls to be careful about wasting
+     Basic: mid range fire 
+. Pilot: Fires rockets. Fuelled machine that uses fuel for movement and attack
+    System: Good for clearing waves from afar. Promotes careful placement to heal
+    Health: Based on fuel count. 100 when out of fuel
+    Basic: Fire rockets
+    1. Refuel (Set fuel to makes stops action)
+    
 
 Support: aids team
 . Jumper: heals allies and gives temporary boost (++)
